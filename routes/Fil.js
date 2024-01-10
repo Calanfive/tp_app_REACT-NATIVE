@@ -1,18 +1,15 @@
 import * as React from 'react';
-import { StyleSheet, View, Text, Button} from 'react-native';
-import Button from './Button';
+import { StyleSheet, Text, View, Button} from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
-export default function Home({ navigation }) {
+export default function Fil() {
 return (
-    <View style={styles.container}>
-        <Text>Home Screen</Text>
-        <Button style={styles.button} onPress={() => navigation.navigate('Button')}>
-            <Text>Bouton</Text>
-        </Button>
-        <Button style={styles.button} onPress={() => navigation.navigate('Fil')}>
-            <Text>Fils</Text>
-        </Button>
-    </View>
+    <SafeAreaView style={styles.container}>
+        <View>
+            <Text></Text>
+        </View>
+
+    </SafeAreaView>
 );
 }
 

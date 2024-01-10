@@ -7,7 +7,7 @@ export default function Button() {
     <SafeAreaView style={styles.container}>
       <Text style={styles.texto}>Appuyer puis relâcher aussitôt si :</Text>
       <View style={styles.box}>
-        <Text>Nb de piles &gt; 1 + "Exploser"</Text>
+        <Text>Nb de   &gt; 1 + "Exploser"</Text>
       </View>
       <View style={styles.box}>
         <Text>Nb de piles &gt; + "FRK"</Text>
