@@ -1,7 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, SafeAreaView } from 'react-native';
 
-export default function Bouton() {
+export default function Button() {
 
   return (
     <SafeAreaView style={styles.container}>
