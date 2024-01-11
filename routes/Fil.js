@@ -25,10 +25,6 @@ export default function Fil() {
     const [open, setOpen] = useState(false);
     const [value, setValue] = useState('3');
 
-    // const numeroFil = useMemo(() =>
-
-    // )
-
     const res = useMemo(() => {
         const nbFilsRouges = colors.filter(couleur => couleur === 'red').length
         const nbFilsBleus = colors.filter(couleur => couleur === 'blue').length
@@ -101,14 +97,16 @@ export default function Fil() {
         {colors.map((color, k) => 
             <View key={k}>
                 <View style={styles.color} >
-                    {/* <Text>{numeroFil}</Text> */}
-                    <View style={{ width: 250,
-                                    height: 20,
-                                    backgroundColor: color,
-                                    borderWidth: 1,
-                                    borderStyle: 'solid',
-                                    borderColor: "black"
-                                }}>
+                    <Text style={styles.numfil}>{k + 1}{k === 0 ? 'er' : 'ème'} fil</Text>
+                    <View 
+                        style={{ 
+                            width: 250,
+                            height: 20,
+                            backgroundColor: color,
+                            borderWidth: 1,
+                            borderStyle: 'solid',
+                            borderColor: "black"
+                        }}>
                     </View>
                     <View style={styles.colorList} >
                         {possibleColors.map((color, keyColor) => 
@@ -128,7 +126,7 @@ export default function Fil() {
                     </View>
                 </View>
             </View>)}
-            <Text>{res}</Text>
+            <Text style={styles.numfil}>{res}</Text>
         </View>
     </View>
     );
@@ -158,5 +156,9 @@ const styles = StyleSheet.create({
         display: 'flex',
         flexDirection: 'row',
         margin: 10,
+    },
+
+    numfil: {
+        fontWeight: 'bold'
     }
 });
