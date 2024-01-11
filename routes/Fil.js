@@ -16,15 +16,49 @@ const items = [
 export default function Fil() {
     const [debug, setDebug] = useState('rien')
     const [colors, setColors] = useState(['white', 'white', 'white'])
-
+    const [lastSerialNumberValue, setLastSerialNumberValue] = useState("impair")
+    
     const res = useMemo(() => {
+        const nbFilsRouges = colors.filter(couleur => couleur === 'red').length
+        const nbFilsBleus = colors.filter(couleur => couleur === 'blue').length
+        const nbFilsJaunes = colors.filter(couleur => couleur === 'yellow').length
+        const nbFilsNoirs = colors.filter(couleur => couleur === 'black').length
+    
         if(colors.length === 3){
-            return 'couper le 3ème fil'
+            if (nbFilsRouges === 0) {
+                return 'couper le 2ème fil'
+            } else if (nbFilsBleus> 1) {
+                return 'couper le dernier fil bleu'
+            } else {
+                return 'couper le dernier fil'
+            }
         }
-        if(colors[0] === 'red'){
-            return 'titi'
+        
+        if(colors.length === 4){
+
+            if ((colors[3] === 'yellow' && nbFilsRouges === 0) || nbFilsBleus >= 1) {
+                return 'couper le 1er fil'
+            } else if (nbFilsRouges > 1 && lastSerialNumberValue === 'impair') {
+                return 'couper le fil rouge'
+            } else if (nbFilsJaunes > 1) {
+                return 'couper le dernier fil'
+            } else {
+                return 'couper le 2ème fil'
+            }
         }
-        return 'toto'
+
+        if(colors.length === 5){
+            if (colors[4] === 'black' && lastSerialNumberValue === 'impair') {
+                return 'couper le 4ème fil'
+            } else if (nbFilsRouges === 1 && nbFilsJaunes > 1) {
+                return 'couper le 1er fil'
+            } else if (nbFilsNoirs === 0) {
+                return 'couper le 2ème fil'
+            }
+        }
+
+        return 'result'
+
     }, [colors])
 
     const handleChangeFilColor = (indexNewColor, newColor) => {
@@ -45,14 +79,18 @@ export default function Fil() {
         <View>
             {colors.map((color, k) => 
             <View key={k}>
-                <View style={{ width: 650, height: 20, backgroundColor: color}}></View>
-                {items.map((color, keyColor) => 
-                    <TouchableOpacity 
-                        key={keyColor} 
-                        style={{ width: 50, height: 50, backgroundColor: color}} 
-                        onPress={() => handleChangeFilColor(k, color)}
-                    />
-                )}
+                <View style={styles.color} >
+                    <View style={{ width: 250, height: 20, backgroundColor: color}}></View>
+                    <View style={styles.colorList} >
+                        {items.map((color, keyColor) => 
+                            <TouchableOpacity 
+                                key={keyColor} 
+                                style={{ width: 50, height: 50, backgroundColor: color}} 
+                                onPress={() => handleChangeFilColor(k, color)} 
+                            />
+                        )}
+                    </View>
+                </View>
             </View>)}
             <Text>{res}</Text>
         </View>
@@ -61,12 +99,24 @@ export default function Fil() {
 
 const styles = StyleSheet.create({
     button: {
-    alignItems: 'center',
-    backgroundColor: '#DDDDDD',
-    padding: 10,
+        alignItems: 'center',
+        backgroundColor: '#DDDDDD',
+        padding: 10,
     },
+
     container: { 
         flex: 1, 
         alignItems: 'center', 
-        justifyContent: 'center' }
+        justifyContent: 'center'
+    },
+
+    color: {
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center'
+    },
+    colorList: {
+        display: 'flex',
+        flexDirection: 'row'
+    }
 });
