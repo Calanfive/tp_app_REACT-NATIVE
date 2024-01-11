@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { useState, useMemo } from 'react';
 import { StyleSheet, Text, View, Button, TouchableOpacity} from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import DropDownPicker from 'react-native-dropdown-picker';
 
 const items = [
@@ -113,10 +112,12 @@ const styles = StyleSheet.create({
     color: {
         display: 'flex',
         flexDirection: 'column',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        margin: 20
     },
     colorList: {
         display: 'flex',
-        flexDirection: 'row'
+        flexDirection: 'row',
+        margin: 10
     }
 });
