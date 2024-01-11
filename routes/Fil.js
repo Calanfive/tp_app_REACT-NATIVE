@@ -1,9 +1,9 @@
 import * as React from 'react';
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { StyleSheet, Text, View, Button, TouchableOpacity} from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
 
-const items = [
+const possibleColors = [
     'white',
     'red',
     'green',
@@ -12,11 +12,19 @@ const items = [
     'yellow'
 ];
 
+const items = [
+    {value: '3', label: '3 fils'},
+    {value: '4', label: '4 fils'},
+    {value: '5', label: '5 fils'}
+];
+
 export default function Fil() {
     const [debug, setDebug] = useState('rien')
     const [colors, setColors] = useState(['white', 'white', 'white'])
     const [lastSerialNumberValue, setLastSerialNumberValue] = useState("impair")
-    
+    const [open, setOpen] = useState(false);
+    const [value, setValue] = useState('3');
+
     const res = useMemo(() => {
         const nbFilsRouges = colors.filter(couleur => couleur === 'red').length
         const nbFilsBleus = colors.filter(couleur => couleur === 'blue').length
@@ -54,10 +62,10 @@ export default function Fil() {
             } else if (nbFilsNoirs === 0) {
                 return 'couper le 2ème fil'
             }
+            else {
+                return 'couper le 1er fil'
+            }
         }
-
-        return 'result'
-
     }, [colors])
 
     const handleChangeFilColor = (indexNewColor, newColor) => {
@@ -67,21 +75,31 @@ export default function Fil() {
         setDebug('handleChangeColor: ' + indexNewColor + ', ' + newColor)
     }
 
+    useEffect(() => {
+        let newColors = []
+        for (let index = 0; index < parseInt(value); index++) {
+            newColors.push('blue')
+        }
+        setColors(newColors)
+    }, [value])
+
     return (
-    //   <DropDownPicker
-    //     open={open}
-    //     value={value}
-    //     items={items}
-    //     setOpen={setOpen}
-    //     setValue={setValue}
-    //   />
+    <View>
+        <DropDownPicker
+          open={open}
+          value={value}
+          items={items}
+          setOpen={setOpen}
+          setValue={setValue}
+        />
+        
         <View>
-            {colors.map((color, k) => 
+        {colors.map((color, k) => 
             <View key={k}>
                 <View style={styles.color} >
                     <View style={{ width: 250, height: 20, backgroundColor: color}}></View>
                     <View style={styles.colorList} >
-                        {items.map((color, keyColor) => 
+                        {possibleColors.map((color, keyColor) => 
                             <TouchableOpacity 
                                 key={keyColor} 
                                 style={{ width: 50, height: 50, backgroundColor: color}} 
@@ -93,6 +111,7 @@ export default function Fil() {
             </View>)}
             <Text>{res}</Text>
         </View>
+    </View>
     );
   }
 
@@ -115,6 +134,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         margin: 20
     },
+
     colorList: {
         display: 'flex',
         flexDirection: 'row',
