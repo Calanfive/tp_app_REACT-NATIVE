@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useState, useMemo, useEffect } from 'react';
-import { StyleSheet, Text, View, Button, TouchableOpacity} from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
 
 const possibleColors = [
@@ -24,6 +24,10 @@ export default function Fil() {
     const [lastSerialNumberValue, setLastSerialNumberValue] = useState("impair")
     const [open, setOpen] = useState(false);
     const [value, setValue] = useState('3');
+
+    // const numeroFil = useMemo(() =>
+
+    // )
 
     const res = useMemo(() => {
         const nbFilsRouges = colors.filter(couleur => couleur === 'red').length
@@ -97,12 +101,27 @@ export default function Fil() {
         {colors.map((color, k) => 
             <View key={k}>
                 <View style={styles.color} >
-                    <View style={{ width: 250, height: 20, backgroundColor: color}}></View>
+                    {/* <Text>{numeroFil}</Text> */}
+                    <View style={{ width: 250,
+                                    height: 20,
+                                    backgroundColor: color,
+                                    borderWidth: 1,
+                                    borderStyle: 'solid',
+                                    borderColor: "black"
+                                }}>
+                    </View>
                     <View style={styles.colorList} >
                         {possibleColors.map((color, keyColor) => 
                             <TouchableOpacity 
                                 key={keyColor} 
-                                style={{ width: 50, height: 50, backgroundColor: color}} 
+                                style={{ 
+                                    width: 50, 
+                                    height: 50, 
+                                    backgroundColor: color,
+                                    borderWidth: 1,
+                                    borderStyle: 'solid',
+                                    borderColor: "black"
+                                }} 
                                 onPress={() => handleChangeFilColor(k, color)} 
                             />
                         )}
@@ -138,6 +157,6 @@ const styles = StyleSheet.create({
     colorList: {
         display: 'flex',
         flexDirection: 'row',
-        margin: 10
+        margin: 10,
     }
 });
